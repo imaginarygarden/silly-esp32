@@ -1,16 +1,10 @@
-#include "display_driver.h"
-#include "driver/gpio.h"
+#include "core/display_driver.h"
+#include "core/board_config.h"
 #include "driver/i2c_master.h"
-#include "driver/spi_master.h"
-#include "esp_err.h"
 #include "esp_lcd_ili9341.h"
-#include "esp_lcd_panel_io.h"
-#include "esp_lcd_panel_ops.h"
 #include "esp_lcd_touch_ft5x06.h"
 #include "esp_log.h"
 #include "esp_lvgl_port.h"
-#include "board_config.h"
-#include "lvgl.h"
 
 static const char *TAG = "display_driver";
 

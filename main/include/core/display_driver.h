@@ -1,6 +1,6 @@
 #pragma once
 
 class DisplayDriver {
-    public:
+public:
     void init(void);
 };

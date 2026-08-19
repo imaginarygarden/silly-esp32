@@ -1,5 +1,5 @@
-#include "display_driver.h"
-#include "showcase_screen.h"
+#include "core/display_driver.h"
+#include "screen/showcase_screen.h"
 
 extern "C" {
     void app_main(void);

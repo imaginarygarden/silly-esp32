@@ -6,7 +6,6 @@
 class BaseScreen {
 public:
     BaseScreen()
-        : screen_(lvgl::Screen::active()), title_(screen_), status_(screen_)
     {
     }
 
@@ -20,7 +19,7 @@ public:
 protected:
     virtual void construct(void) = 0;
 
-    lvgl::Screen screen_;
-    lvgl::Label title_;
-    lvgl::Label status_;
+    lvgl::Screen m_screen{lvgl::Screen::active()};
+    lvgl::Label m_title{m_screen};
+    lvgl::Label m_status{m_screen};
 };
