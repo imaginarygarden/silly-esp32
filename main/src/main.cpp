@@ -1,4 +1,5 @@
 #include <iostream>
+#include "test.h"
 
 extern "C" {
     void app_main(void);
@@ -6,5 +7,5 @@ extern "C" {
 
 void app_main(void)
 {
-    std::cout << "Hello World" << std::endl;
+    std::cout << simple_variable << std::endl;
 }
