@@ -1,1 +1,0 @@
-extern int simple_variable{2};

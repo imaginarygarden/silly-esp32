@@ -1,5 +1,5 @@
-#include <iostream>
-#include "test.h"
+#include "core/display_driver.h"
+#include "screen/showcase_screen.h"
 
 extern "C" {
     void app_main(void);
@@ -7,5 +7,11 @@ extern "C" {
 
 void app_main(void)
 {
-    std::cout << simple_variable << std::endl;
+    static DisplayDriver display_driver{};
+    display_driver.init();
+
+    // Event handlers capture ShowcaseScreen::this, so the wrapper and its
+    // callback storage must remain alive after app_main returns.
+    static ShowcaseScreen showcase_screen{};
+    showcase_screen.render();
 }
