@@ -15,4 +15,8 @@ dependencies:
   #   # All dependencies of `main` are public by default.
   #   public: true
   espressif/esp_lcd_ili9341: ^2.0.2
+  espressif/esp_lcd_touch_ft5x06: ^1.0.7
   espressif/esp_lvgl_port: ^2.8.0
+  lvgl_cpp:
+    git: https://github.com/pedapudi/lvgl_cpp.git
+    version: 8cacda461a2232a39b6377d509b54d5e2a1183c5

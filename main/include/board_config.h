@@ -26,7 +26,9 @@
 
 #define BOARD_LVGL_BUFFER_LINES         40
 
-/* Reserved for a future touch driver; its controller model is still needed. */
+/* FT6336G capacitive touch controller (FT5x06-compatible protocol). */
+#define BOARD_TOUCH_I2C_PORT            I2C_NUM_0
+#define BOARD_TOUCH_I2C_CLOCK_HZ        (400 * 1000)
 #define BOARD_TOUCH_PIN_SDA             GPIO_NUM_16
 #define BOARD_TOUCH_PIN_SCL             GPIO_NUM_15
 #define BOARD_TOUCH_PIN_RESET           GPIO_NUM_18
