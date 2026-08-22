@@ -1,5 +1,7 @@
-#include "core/display_driver.h"
-#include "screen/showcase_screen.h"
+#include "core/controller.h"
+
+#include <freertos/FreeRTOS.h>
+#include <esp_lvgl_port.h>
 
 extern "C" {
     void app_main(void);
@@ -7,11 +9,13 @@ extern "C" {
 
 void app_main(void)
 {
-    static DisplayDriver display_driver{};
-    display_driver.init();
+    Controller controller{};
 
-    // Event handlers capture ShowcaseScreen::this, so the wrapper and its
-    // callback storage must remain alive after app_main returns.
-    static ShowcaseScreen showcase_screen{};
-    showcase_screen.render();
+    while (controller.isRunning()) {
+        if (lvgl_port_lock(0)) {
+            controller.update();
+            lvgl_port_unlock();
+        }
+        vTaskDelay(pdMS_TO_TICKS(10));
+    }
 }

@@ -1,35 +1,26 @@
-#pragma once
+#ifndef SHOWCASE_VIEW_H
+#define SHOWCASE_VIEW_H
 
-#include "core/base_screen.h"
+#include "base/base_view.h"
+#include "base/base_screen.h"
 
-class ShowcaseScreen : public BaseScreen {
-public:
-    ShowcaseScreen()
-    {
-    }
+class ShowcaseView : public BaseView {
+    int m_counter{};
+    lvgl::Button m_titleButton{m_screen.get()};
+    lvgl::Label m_titleLabel{m_titleButton};
+    lvgl::Label m_status{m_screen.get()};
+    lvgl::Button m_decrementButton{m_screen.get()};
+    lvgl::Button m_incrementButton{m_screen.get()};
+    lvgl::Label m_decrementLabel{m_decrementButton};
+    lvgl::Label m_incrementLabel{m_incrementButton};
+    lvgl::Label m_counterLabel{m_screen.get()};
+    lvgl::Slider m_slider{m_screen.get()};
+    lvgl::Label m_sliderLabel{m_screen.get()};
+    lvgl::Bar m_progress{m_screen.get()};
+    lvgl::Checkbox m_checkbox{m_screen.get(), "Enable option"};
+    lvgl::Switch m_toggle{m_screen.get()};
+    lvgl::Label m_toggleLabel{m_screen.get()};
 
-protected:
-    void construct() override
-    {
-        m_screen.style().bg_color(lvgl::Color::black());
-
-        m_title.set_text("LVGL C++ Widget Showcase")
-            .align(lvgl::Align::TopMid, 0, 8)
-            .style()
-            .text_color(lvgl::Color::from_hex(0xFFFFFF))
-            .text_font(lvgl::Font::montserrat_14());
-
-        configure_counter();
-        configure_slider();
-        configure_toggles();
-
-        m_status.set_text("Try the controls")
-            .align(lvgl::Align::BottomMid, 0, -7)
-            .style()
-            .text_color(lvgl::Color::from_hex(0x35D07F));
-    }
-
-private:
     void configure_counter()
     {
         m_decrementButton.set_size(70, 42)
@@ -116,16 +107,43 @@ private:
         m_status.set_text("Button clicked");
     }
 
-    int m_counter = 0;
-    lvgl::Button m_decrementButton{m_screen};
-    lvgl::Button m_incrementButton{m_screen};
-    lvgl::Label m_decrementLabel{m_decrementButton};
-    lvgl::Label m_incrementLabel{m_incrementButton};
-    lvgl::Label m_counterLabel{m_screen};
-    lvgl::Slider m_slider{m_screen};
-    lvgl::Label m_sliderLabel{m_screen};
-    lvgl::Bar m_progress{m_screen};
-    lvgl::Checkbox m_checkbox{m_screen, "Enable option"};
-    lvgl::Switch m_toggle{m_screen};
-    lvgl::Label m_toggleLabel{m_screen};
+    void construct()
+    {
+        m_screen.get().style().bg_color(lvgl::Color::black());
+
+        m_titleButton.align(lvgl::Align::TopMid, 0, 8)
+                    .set_size(60, 40)
+                    .on_click([this] (lvgl::Event&) {
+                        m_screen.setView(View::MENU);
+                    })
+                    ;
+
+        m_titleLabel.set_text("Go back <-")
+            .align(lvgl::Align::Center, 0, 0)
+            .style()
+            .text_color(lvgl::Color::from_hex(0xFFFFFF))
+            .text_font(lvgl::Font::montserrat_14())
+            ;
+
+        configure_counter();
+        configure_slider();
+        configure_toggles();
+
+        m_status.set_text("Try the controls")
+            .align(lvgl::Align::BottomMid, 0, -7)
+            .style()
+            .text_color(lvgl::Color::from_hex(0x35D07F))
+            ;
+    }
+
+public:
+    ShowcaseView(BaseScreen &screen) : BaseView{screen}
+    {
+    }
+
+    void build() override {
+        construct();
+    }
 };
+
+#endif
