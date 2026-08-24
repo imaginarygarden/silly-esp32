@@ -8,24 +8,13 @@
 #include <format>
 
 class ErrorView : public View {
-    lvgl::Label m_label{m_screen.get()};
+    Error m_error;
+
+    lvgl::Label m_label;
 
 public:
-    ErrorView(ViewHost &screen) : View{screen}
-    {
-    }
-
-    void build() override {
-        if (!m_screen.getState().error.has_value())
-            m_screen.throwError(Error{"Error was not created."});
-
-        m_label
-        .center()
-        .align(lvgl::Align::Center, 0, 0)
-        .set_text(std::format("An error occured:\n{}", m_screen.getState().error->message))
-        .style()
-        .text_font(lvgl::Font::montserrat_20());
-    }
+    ErrorView(lvgl::Object &parent, Error error) : View{parent}, m_error{error} {}
+    void build() override;
 };
 
 #endif

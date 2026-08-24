@@ -1,7 +1,9 @@
 #ifndef ROUTE_H
 #define ROUTE_H
 
-enum class Route {
+#include <cstdint>
+
+enum class Route : std::uint8_t {
     MENU,
     GAME,
     DEMO,

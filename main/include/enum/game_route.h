@@ -1,7 +1,9 @@
 #ifndef GAME_ROUTE_H
 #define GAME_ROUTE_H
 
-enum class GameRoute {
+#include <cstdint>
+
+enum class GameRoute : std::uint8_t {
     SEQUENCE,
     REACTION,
     AIM,

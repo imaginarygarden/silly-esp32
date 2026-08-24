@@ -2,23 +2,19 @@
 #define MENU_VIEW_H
 
 #include "ui/view.h"
-#include "ui/view_host.h"
 
 class MenuView : public View {
-    lvgl::TabView m_tabView{m_screen.get()};
-    lvgl::TabPage m_gamesPage{m_tabView.add_tab("Games")};
-    lvgl::TabPage m_leaderboardPage{m_tabView.add_tab("Leaderboard")};
-    lvgl::TabPage m_settingsPage{m_tabView.add_tab("Settings")};
-    lvgl::Button m_testButton{m_gamesPage};
-    lvgl::Label m_testButtonLabel{m_testButton};
-    lvgl::Label m_leaderboardLabel{m_leaderboardPage};
-    lvgl::Label m_settingsLabel{m_settingsPage};
+    lvgl::TabView m_tabView;
+    lvgl::TabPage m_gamesPage;
+    lvgl::TabPage m_leaderboardPage;
+    lvgl::TabPage m_settingsPage;
+    lvgl::Button m_testButton;
+    lvgl::Label m_testButtonLabel;
+    lvgl::Label m_leaderboardLabel;
+    lvgl::Label m_settingsLabel;
 
 public:
-    MenuView(ViewHost &screen) : View{screen}
-    {
-    }
-
+    MenuView(lvgl::Object &parent) : View{parent} {}
     void build() override;
 };
 

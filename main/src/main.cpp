@@ -11,7 +11,7 @@ void app_main(void)
 {
     Controller controller{};
 
-    while (controller.isRunning()) {
+    while (controller.active()) {
         controller.update();
         vTaskDelay(pdMS_TO_TICKS(10));
     }

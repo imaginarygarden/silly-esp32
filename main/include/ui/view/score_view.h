@@ -2,18 +2,17 @@
 #define SCORE_VIEW_H
 
 #include "ui/view.h"
-#include "ui/view_host.h"
+#include "enum/result.h"
 
 class ScoreView : public View {
-    lvgl::Label m_textLabel{m_screen.get()};
-    lvgl::Button m_returnButton{m_screen.get()};
-    lvgl::Label m_returnLabel{m_returnButton};
+    Result m_result;
+
+    lvgl::Label m_textLabel;
+    lvgl::Button m_returnButton;
+    lvgl::Label m_returnLabel;
 
 public:
-    ScoreView(ViewHost &screen) : View{screen}
-    {
-    }
-
+    ScoreView(lvgl::Object &parent, Result result) : View{parent}, m_result{result} {}
     void build() override;
 };
 
