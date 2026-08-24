@@ -1,4 +1,5 @@
-#include "view/menu_view.h"
+#include "ui/view/menu_view.h"
+#include "enum/game_route.h"
 
 void MenuView::build() {
     m_leaderboardLabel
@@ -18,7 +19,7 @@ void MenuView::build() {
 
     m_testButton.center().set_size(60, 40)
     .on_click([this] (lvgl::Event&) {
-        m_screen.setGame(Game::SEQUENCE);
+        m_screen.setGame(GameRoute::SEQUENCE);
     })
     ;
     m_testButtonLabel.set_text("Test").align(lvgl::Align::Center, 0, 0);

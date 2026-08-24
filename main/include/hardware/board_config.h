@@ -4,7 +4,7 @@
 /* LCD geometry and orientation (rotation is clockwise from native portrait). */
 #define BOARD_LCD_NATIVE_H_RES               240
 #define BOARD_LCD_NATIVE_V_RES               320
-#define BOARD_LCD_ROTATION                   LV_DISPLAY_ROTATION_90
+#define BOARD_LCD_ROTATION                   LV_DISPLAY_ROTATION_270
 #define BOARD_LCD_NATIVE_SWAP_XY             false
 #define BOARD_LCD_NATIVE_MIRROR_X            true
 #define BOARD_LCD_NATIVE_MIRROR_Y            false

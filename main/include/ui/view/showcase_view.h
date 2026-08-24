@@ -1,10 +1,10 @@
 #ifndef SHOWCASE_VIEW_H
 #define SHOWCASE_VIEW_H
 
-#include "base/base_view.h"
-#include "base/base_screen.h"
+#include "ui/view.h"
+#include "ui/view_host.h"
 
-class ShowcaseView : public BaseView {
+class ShowcaseView : public View {
     int m_counter{};
     lvgl::Button m_titleButton{m_screen.get()};
     lvgl::Label m_titleLabel{m_titleButton};
@@ -114,7 +114,7 @@ class ShowcaseView : public BaseView {
         m_titleButton.align(lvgl::Align::TopMid, 0, 8)
                     .set_size(60, 40)
                     .on_click([this] (lvgl::Event&) {
-                        m_screen.setView(View::MENU);
+                        m_screen.requestView(Route::MENU);
                     })
                     ;
 
@@ -137,7 +137,7 @@ class ShowcaseView : public BaseView {
     }
 
 public:
-    ShowcaseView(BaseScreen &screen) : BaseView{screen}
+    ShowcaseView(ViewHost &screen) : View{screen}
     {
     }
 

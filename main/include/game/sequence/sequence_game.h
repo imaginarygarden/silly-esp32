@@ -1,13 +1,13 @@
 #ifndef SEQUENCE_GAME_H
 #define SEQUENCE_GAME_H
 
-#include "base/base_game.h"
-#include "base/base_screen.h"
+#include "game/game.h"
+#include "ui/view_host.h"
 
 #include <chrono>
 #include <vector>
 
-class SequenceGame : public BaseGame {
+class SequenceGame : public Game {
     lvgl::Label m_timeLabel;
     lvgl::ButtonMatrix m_buttonMatrix;
     uint8_t m_cols{3};
@@ -20,7 +20,7 @@ class SequenceGame : public BaseGame {
     std::chrono::time_point<std::chrono::steady_clock> m_gameStarted{};
 
 public:
-    SequenceGame(BaseScreen &screen) : BaseGame{screen}
+    SequenceGame(ViewHost &screen) : Game{screen}
     {
     }
 

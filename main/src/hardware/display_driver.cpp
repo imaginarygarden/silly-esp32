@@ -1,5 +1,5 @@
-#include "core/display_driver.h"
-#include "core/board_config.h"
+#include "hardware/display_driver.h"
+#include "hardware/board_config.h"
 
 #include "driver/i2c_master.h"
 #include "esp_heap_caps.h"

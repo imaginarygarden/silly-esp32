@@ -1,4 +1,4 @@
-#include "core/controller.h"
+#include "app/controller.h"
 
 #include <freertos/FreeRTOS.h>
 #include <esp_lvgl_port.h>
@@ -12,10 +12,7 @@ void app_main(void)
     Controller controller{};
 
     while (controller.isRunning()) {
-        if (lvgl_port_lock(0)) {
-            controller.update();
-            lvgl_port_unlock();
-        }
+        controller.update();
         vTaskDelay(pdMS_TO_TICKS(10));
     }
 }

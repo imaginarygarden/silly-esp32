@@ -1,18 +1,20 @@
-#ifndef BASE_GAME_H
-#define BASE_GAME_H
+#ifndef GAME_H
+#define GAME_H
 
-#include "base/base_view.h"
+#include "ui/view.h"
 
 #include <string>
 
-class BaseGame {
+class Game {
 protected:
-    BaseScreen &m_screen;
+    ViewHost &m_screen;
 
 public:
-    BaseGame(BaseScreen &screen) : m_screen{screen}
+    Game(ViewHost &screen) : m_screen{screen}
     {
     }
+
+    virtual ~Game() = default;
 
     virtual void build() = 0;
     

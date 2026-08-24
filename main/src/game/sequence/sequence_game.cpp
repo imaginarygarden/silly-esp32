@@ -1,4 +1,5 @@
-#include "game/sequence_game.h"
+#include "game/sequence/sequence_game.h"
+#include "enum/result.h"
 
 void SequenceGame::build() {
     m_timeLabel = lvgl::Label{m_screen.get()};

@@ -1,10 +1,10 @@
 #ifndef MENU_VIEW_H
 #define MENU_VIEW_H
 
-#include "base/base_view.h"
-#include "base/base_screen.h"
+#include "ui/view.h"
+#include "ui/view_host.h"
 
-class MenuView : public BaseView {
+class MenuView : public View {
     lvgl::TabView m_tabView{m_screen.get()};
     lvgl::TabPage m_gamesPage{m_tabView.add_tab("Games")};
     lvgl::TabPage m_leaderboardPage{m_tabView.add_tab("Leaderboard")};
@@ -15,7 +15,7 @@ class MenuView : public BaseView {
     lvgl::Label m_settingsLabel{m_settingsPage};
 
 public:
-    MenuView(BaseScreen &screen) : BaseView{screen}
+    MenuView(ViewHost &screen) : View{screen}
     {
     }
 

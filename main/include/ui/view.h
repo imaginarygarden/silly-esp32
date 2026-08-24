@@ -1,18 +1,20 @@
-#ifndef BASE_VIEW_H
-#define BASE_VIEW_H
+#ifndef VIEW_H
+#define VIEW_H
 
 #include "lvgl_cpp.h"
 
-class BaseScreen;
+class ViewHost;
 
-class BaseView {
+class View {
 protected:
-    BaseScreen &m_screen;
+    ViewHost &m_screen;
 
 public:
-    BaseView(BaseScreen &screen) : m_screen{screen}
+    View(ViewHost &screen) : m_screen{screen}
     {
     }
+
+    virtual ~View() = default;
 
     virtual void build() = 0;
     

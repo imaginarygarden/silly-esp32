@@ -1,17 +1,17 @@
 #ifndef DESCRIPTION_VIEW_H
 #define DESCRIPTION_VIEW_H
 
-#include "base/base_view.h"
-#include "base/base_screen.h"
+#include "ui/view.h"
+#include "ui/view_host.h"
 
-class DescriptionView : public BaseView {
+class DescriptionView : public View {
     lvgl::Label m_nameLabel{m_screen.get()};
     lvgl::Label m_descriptionLabel{m_screen.get()};
     lvgl::Button m_button{m_screen.get()};
     lvgl::Label m_buttonLabel{m_button};
 
 public:
-    DescriptionView(BaseScreen &screen) : BaseView{screen}
+    DescriptionView(ViewHost &screen) : View{screen}
     {
     }
 

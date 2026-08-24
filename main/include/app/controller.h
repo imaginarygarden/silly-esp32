@@ -1,21 +1,15 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "core/display_driver.h"
-#include "base/base_screen.h"
-#include "base/base_game.h"
-
-struct State {
-    std::unique_ptr<BaseGame> game{};
-    Result lastResult{};
-    bool playing{false};
-    bool active{true};
-};
+#include "hardware/display_driver.h"
+#include "ui/view_host.h"
+#include "game/game.h"
+#include "app/state.h"
 
 class Controller {
     DisplayDriver m_displayDriver{};
-    BaseScreen m_screen{*this};
     State m_state{};
+    ViewHost m_screen{*this};
 
 public:
     // runs every 10ms
