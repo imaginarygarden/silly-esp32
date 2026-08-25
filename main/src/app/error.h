@@ -1,7 +1,7 @@
 #ifndef ERROR_H
 #define ERROR_H
 
-#include "enum/error_type.h"
+#include "app/error_type.h"
 
 #include <string>
 

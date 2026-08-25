@@ -1,14 +1,14 @@
-#ifndef IGAME_H
-#define IGAME_H
+#ifndef GAME_H
+#define GAME_H
 
-#include "enum/status.h"
+#include "game/game_status.h"
 
 #include <string>
 
-class IGame {
+class Game {
 public:
-    virtual ~IGame() = default;
-    virtual Status update() = 0;
+    virtual ~Game() = default;
+    virtual GameStatus update() = 0;
     virtual void start() = 0;
     virtual std::string name() const = 0;
     virtual std::string description() const = 0;

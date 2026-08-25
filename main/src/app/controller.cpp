@@ -4,8 +4,13 @@
 
 #include "esp_lvgl_port.h"
 
-Controller::Controller() {
-    m_screen.set_view(ViewFactory::instance().create_menu(m_screen));
+void Controller::init() {
+    if (lvgl_port_lock(0)) {
+
+        m_screen.set_view(ViewFactory::instance().create_menu(m_screen));
+
+        lvgl_port_unlock();
+    }
 }
 
 void Controller::update() {
@@ -48,12 +53,12 @@ void Controller::handle_command(ScoreNavigation data) {
 }
 
 void Controller::handle_command(StartCommand data) {
-    std::unique_ptr<View> view = m_session.start(m_screen);
+    std::function<std::unique_ptr<View>()> view = m_session.start(m_screen);
 
     if (!view) {
         m_screen.set_view(ViewFactory::instance().create_error(m_screen, Error{ErrorType::UNEXPECTED, "The game failed to start."}));
         return;
     }
 
-    m_screen.set_view(std::move(view));
+    m_screen.set_view(view);
 }

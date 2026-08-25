@@ -1,11 +1,11 @@
 #ifndef GAME_SESSION_H
 #define GAME_SESSION_H
 
-#include "interface/igame.h"
-#include "interface/igame_runtime.h"
+#include "game/game.h"
+#include "game/game_runtime.h"
 #include "ui/view.h"
-#include "enum/game_route.h"
-#include "enum/result.h"
+#include "game/game_route.h"
+#include "game/game_result.h"
 
 #include "lvgl_cpp.h"
 
@@ -13,12 +13,12 @@
 
 class GameSession {
     std::optional<GameRoute> m_route{};
-    std::unique_ptr<IGameRuntime> m_game{};
+    std::unique_ptr<GameRuntime> m_game{};
     bool m_running{};
 
 public:
-    std::unique_ptr<View> start(lvgl::Object &parent);
-    std::optional<Result> update();
+    std::function<std::unique_ptr<View>()> start(lvgl::Object &parent);
+    std::optional<GameResult> update();
     std::optional<GameRoute> route() const { return m_route; };
     std::optional<std::string> name() const { return active() ? std::optional{m_game->name()} : std::nullopt; }
     std::optional<std::string> description() const { return active() ? std::optional{m_game->description()} : std::nullopt; }

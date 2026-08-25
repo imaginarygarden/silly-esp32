@@ -1,9 +1,9 @@
-#ifndef STATUS_H
-#define STATUS_H
+#ifndef GAME_STATUS_H
+#define GAME_STATUS_H
 
 #include <cstdint>
 
-enum class Status : std::uint8_t {
+enum class GameStatus : std::uint8_t {
     WIN,
     LOSE,
     TIE,

@@ -2,9 +2,8 @@
 #define COMMAND_H
 
 #include "app/error.h"
-#include "enum/route.h"
-#include "enum/game_route.h"
-#include "enum/result.h"
+#include "game/game_route.h"
+#include "game/game_result.h"
 
 #include <string>
 #include <variant>
@@ -20,7 +19,7 @@ struct DescriptionNavigation {
 };
 
 struct ScoreNavigation {
-    Result result{};
+    GameResult result{};
 };
 
 struct StartCommand {};

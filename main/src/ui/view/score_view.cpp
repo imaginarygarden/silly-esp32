@@ -5,10 +5,10 @@
 
 namespace {
 
-std::unordered_map<Result, std::string> RESULT_MESSAGES{
-    {Result::WIN, "You won!"},
-    {Result::LOSE, "You lost :("},
-    {Result::TIE, "A tie -_-"},
+std::unordered_map<GameResult, std::string> RESULT_MESSAGES{
+    {GameResult::WIN, "You won!"},
+    {GameResult::LOSE, "You lost :("},
+    {GameResult::TIE, "A tie -_-"},
 };
 
 }

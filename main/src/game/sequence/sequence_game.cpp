@@ -1,10 +1,10 @@
 #include "game/sequence/sequence_game.h"
-#include "enum/result.h"
-#include "enum/status.h"
+#include "game/game_result.h"
+#include "game/game_status.h"
 
 #include <chrono>
 
-Status SequenceGame::update() {
+GameStatus SequenceGame::update() {
     using namespace std::chrono;
 
     time_point<steady_clock> now = steady_clock::now();
@@ -13,13 +13,13 @@ Status SequenceGame::update() {
     std::int64_t minutesElapsed = secondsElapsed / 60;
 
     if (minutesElapsed >= m_state.minutesLimit)
-        return Status::LOSE;
+        return GameStatus::LOSE;
 
     std::int64_t secondsLeft = m_state.minutesLimit * 60 - secondsElapsed;
 
     m_state.secondsLeft = secondsLeft;
 
-    return Status::RUNNING;
+    return GameStatus::RUNNING;
 }
 
 void SequenceGame::start() {

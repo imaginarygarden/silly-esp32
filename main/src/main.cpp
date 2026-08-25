@@ -10,6 +10,7 @@ extern "C" {
 void app_main(void)
 {
     Controller controller{};
+    controller.init();
 
     while (controller.active()) {
         controller.update();
