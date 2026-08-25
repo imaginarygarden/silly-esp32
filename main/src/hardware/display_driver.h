@@ -4,7 +4,7 @@
 class DisplayDriver {
     void init();
 
-public:
+   public:
     DisplayDriver();
 };
 

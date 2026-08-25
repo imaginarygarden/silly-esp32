@@ -4,8 +4,7 @@
 
 void ViewHost::reset() {
     m_screen.clean();
-    m_screen.style()
-            .bg_color(lvgl::Color::from_hex(0xFFFFFF));
+    m_screen.style().bg_color(lvgl::Color::from_hex(0xFFFFFF));
 }
 
 void ViewHost::set_view(std::function<std::unique_ptr<View>()> create) {
@@ -16,8 +15,7 @@ void ViewHost::set_view(std::function<std::unique_ptr<View>()> create) {
 }
 
 std::optional<Command> ViewHost::poll_command() {
-    if (!m_view)
-        return std::nullopt;
+    if (!m_view) return std::nullopt;
 
     return m_view->poll_command();
 }

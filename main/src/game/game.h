@@ -1,12 +1,12 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "game/game_status.h"
-
 #include <string>
 
+#include "game/game_status.h"
+
 class Game {
-public:
+   public:
     virtual ~Game() = default;
     virtual GameStatus update() = 0;
     virtual void start() = 0;

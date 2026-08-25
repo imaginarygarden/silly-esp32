@@ -1,7 +1,9 @@
 #include "game/game_session.h"
+
 #include "game/game_factory.h"
 
-std::function<std::unique_ptr<View>()> GameSession::start(lvgl::Object &parent) {
+std::function<std::unique_ptr<View>()> GameSession::start(
+    lvgl::Object& parent) {
     if (active() && !running()) {
         m_game->start();
         m_running = true;
@@ -23,9 +25,8 @@ bool GameSession::set(GameRoute route) {
     return false;
 }
 
-std::optional<GameResult> GameSession::update() { 
-    if (!active() || !running())
-        return std::nullopt;
+std::optional<GameResult> GameSession::update() {
+    if (!active() || !running()) return std::nullopt;
 
     std::optional<GameStatus> status{m_game->update()};
 

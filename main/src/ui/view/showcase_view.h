@@ -27,8 +27,8 @@ class ShowcaseView : public View {
     void update_counter();
     void construct();
 
-public:
-    ShowcaseView(lvgl::Object &parent) : View{parent} {}
+   public:
+    ShowcaseView(lvgl::Object& parent) : View{parent} {}
     void build() override;
 };
 

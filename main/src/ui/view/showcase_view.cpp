@@ -1,7 +1,6 @@
 #include "ui/view/showcase_view.h"
 
-void ShowcaseView::configure_counter()
-{
+void ShowcaseView::configure_counter() {
     m_decrementButton.set_size(70, 42)
         .align(lvgl::Align::Center, -90, -55)
         .on_clicked([this](lvgl::Event&) {
@@ -31,8 +30,7 @@ void ShowcaseView::configure_counter()
     m_incrementLabel.set_text("+").center();
 }
 
-void ShowcaseView::configure_slider()
-{
+void ShowcaseView::configure_slider() {
     m_slider.set_range(0, 100)
         .set_value(40)
         .set_size(235, 18)
@@ -48,22 +46,18 @@ void ShowcaseView::configure_slider()
         .style()
         .text_color(lvgl::Color::from_hex(0xD5DEE8));
 
-    m_progress.set_range(0, 100)
-        .set_value(40)
-        .set_size(235, 7)
-        .align(lvgl::Align::Center, 0, 25);
+    m_progress.set_range(0, 100).set_value(40).set_size(235, 7).align(
+        lvgl::Align::Center, 0, 25);
     m_progress.style(lvgl::Part::Indicator)
         .bg_color(lvgl::Color::from_hex(0x35D07F));
 }
 
-void ShowcaseView::configure_toggles()
-{
+void ShowcaseView::configure_toggles() {
     m_checkbox.align(lvgl::Align::Center, -72, 58)
         .on_value_changed([this](lvgl::Event&) {
-            m_status.set_text(
-                m_checkbox.has_state(lvgl::State::Checked)
-                    ? "Checkbox enabled"
-                    : "Checkbox disabled");
+            m_status.set_text(m_checkbox.has_state(lvgl::State::Checked)
+                                  ? "Checkbox enabled"
+                                  : "Checkbox disabled");
         });
     m_checkbox.style().text_color(lvgl::Color::from_hex(0xFFFFFF));
 
@@ -80,14 +74,12 @@ void ShowcaseView::configure_toggles()
         .text_color(lvgl::Color::from_hex(0xFFFFFF));
 }
 
-void ShowcaseView::update_counter()
-{
+void ShowcaseView::update_counter() {
     m_counterLabel.set_text_fmt("%d", m_counter);
     m_status.set_text("Button clicked");
 }
 
-void ShowcaseView::construct()
-{
+void ShowcaseView::construct() {
     m_titleButton = lvgl::Button{m_parent};
     m_titleLabel = lvgl::Label{m_titleButton};
     m_status = lvgl::Label{m_parent};
@@ -106,18 +98,14 @@ void ShowcaseView::construct()
     m_parent.style().bg_color(lvgl::Color::black());
 
     m_titleButton.align(lvgl::Align::TopMid, 0, 8)
-                .set_size(60, 40)
-                .on_click([this] (lvgl::Event&) {
-                    push_command(MenuNavigation{});
-                })
-                ;
+        .set_size(60, 40)
+        .on_click([this](lvgl::Event&) { push_command(MenuNavigation{}); });
 
     m_titleLabel.set_text("Go back <-")
         .align(lvgl::Align::Center, 0, 0)
         .style()
         .text_color(lvgl::Color::from_hex(0xFFFFFF))
-        .text_font(lvgl::Font::montserrat_14())
-        ;
+        .text_font(lvgl::Font::montserrat_14());
 
     configure_counter();
     configure_slider();
@@ -126,10 +114,7 @@ void ShowcaseView::construct()
     m_status.set_text("Try the controls")
         .align(lvgl::Align::BottomMid, 0, -7)
         .style()
-        .text_color(lvgl::Color::from_hex(0x35D07F))
-        ;
+        .text_color(lvgl::Color::from_hex(0x35D07F));
 }
 
-void ShowcaseView::build() {
-    construct();
-}
+void ShowcaseView::build() { construct(); }
