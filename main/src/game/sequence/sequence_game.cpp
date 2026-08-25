@@ -7,21 +7,53 @@
 GameStatus SequenceGame::update() {
     using namespace std::chrono;
 
-    time_point<steady_clock> now = steady_clock::now();
+    if (!m_state.paused) {
+        time_point<steady_clock> now = steady_clock::now();
+        std::int64_t millisecondsElapsed = duration_cast<milliseconds>(now - m_state.lastMeasured).count();
 
-    std::int64_t secondsElapsed = duration_cast<seconds>(now - m_state.gameStarted).count();
-    std::int64_t minutesElapsed = secondsElapsed / 60;
+        m_state.lastMeasured = now;
+        m_state.secondsLeft -= millisecondsElapsed / 1000.0;
+    }
 
-    if (minutesElapsed >= m_state.minutesLimit)
+    if (m_state.secondsLeft <= 0 || m_state.lost)
         return GameStatus::LOSE;
-
-    std::int64_t secondsLeft = m_state.minutesLimit * 60 - secondsElapsed;
-
-    m_state.secondsLeft = secondsLeft;
 
     return GameStatus::RUNNING;
 }
 
 void SequenceGame::start() {
-    m_state.gameStarted = std::chrono::steady_clock::now();
+    if (m_state.started)
+        return;
+
+    m_state.lastMeasured = std::chrono::steady_clock::now();
+    m_state.started = true;
+    m_state.path.push_back(rand() % button_count());
+}
+
+void SequenceGame::press_button(std::uint8_t index) {
+    if (!m_state.started || m_state.lost || m_state.paused)
+        return;
+
+    if (m_state.path[m_state.playerIndex] != index)
+        m_state.lost = true;
+
+    m_state.playerIndex++;
+
+    if (m_state.playerIndex >= m_state.path.size()) {
+        std::uint8_t num{static_cast<std::uint8_t>(rand() % button_count())};
+        while (!m_state.path.empty() && num == m_state.path.back()) { num = rand() % button_count(); }
+
+        m_state.path.push_back(num);
+        m_state.playerIndex = 0;
+        m_state.level++;
+    }
+}
+
+void SequenceGame::pause_time() {
+    m_state.paused = true;
+}
+
+void SequenceGame::resume_time() {
+    m_state.paused = false;
+    m_state.lastMeasured = std::chrono::steady_clock::now();
 }

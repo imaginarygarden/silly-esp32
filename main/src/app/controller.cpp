@@ -15,11 +15,14 @@ void Controller::init() {
 
 void Controller::update() {
     if (lvgl_port_lock(0)) {
+
         while (auto command = m_screen.poll_command())
             handle_command(*command);
 
         if (auto result = m_session.update())
             handle_command(ScoreNavigation{*result});
+
+        m_screen.update_view();
 
         lvgl_port_unlock();
     }

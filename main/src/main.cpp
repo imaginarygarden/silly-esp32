@@ -1,7 +1,8 @@
 #include "app/controller.h"
 
-#include <freertos/FreeRTOS.h>
 #include <esp_lvgl_port.h>
+
+#include <freertos/FreeRTOS.h>
 
 extern "C" {
     void app_main(void);

@@ -20,6 +20,7 @@ public:
     View(lvgl::Object &parent) : m_parent{parent} {}
     virtual ~View() = default;
     virtual void build() = 0;
+    virtual void update() {}
     std::optional<Command> poll_command();
 };
 

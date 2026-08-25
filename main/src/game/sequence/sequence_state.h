@@ -8,12 +8,15 @@
 struct SequenceState {
     std::uint8_t cols{3};
     std::uint8_t rows{3};
-    std::int64_t secondsLeft{};
-    std::size_t minutesLimit{1};
-    std::size_t level{1};
-    std::size_t historyIndex{};
-    std::vector<uint8_t> history{};
-    std::chrono::time_point<std::chrono::steady_clock> gameStarted{};
+    std::uint8_t level{1};
+    std::uint8_t pathIndex{};
+    std::uint8_t playerIndex{};
+    std::vector<uint8_t> path{};
+    std::chrono::time_point<std::chrono::steady_clock> lastMeasured{};
+    double secondsLeft{60};
+    bool started{};
+    bool lost{};
+    bool paused{};
 };
 
 #endif
