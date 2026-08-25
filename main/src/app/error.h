@@ -1,9 +1,9 @@
 #ifndef ERROR_H
 #define ERROR_H
 
-#include "app/error_type.h"
-
 #include <string>
+
+#include "app/error_type.h"
 
 struct Error {
     ErrorType type{};

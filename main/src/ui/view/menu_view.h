@@ -13,8 +13,8 @@ class MenuView : public View {
     lvgl::Label m_leaderboardLabel;
     lvgl::Label m_settingsLabel;
 
-public:
-    MenuView(lvgl::Object &parent) : View{parent} {}
+   public:
+    MenuView(lvgl::Object& parent) : View{parent} {}
     void build() override;
 };
 

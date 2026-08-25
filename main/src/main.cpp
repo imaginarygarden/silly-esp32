@@ -1,15 +1,13 @@
-#include "app/controller.h"
-
 #include <esp_lvgl_port.h>
-
 #include <freertos/FreeRTOS.h>
 
+#include "app/controller.h"
+
 extern "C" {
-    void app_main(void);
+void app_main(void);
 }
 
-void app_main(void)
-{
+void app_main(void) {
     Controller controller{};
     controller.init();
 

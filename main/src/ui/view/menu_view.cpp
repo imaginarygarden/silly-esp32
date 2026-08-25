@@ -1,4 +1,5 @@
 #include "ui/view/menu_view.h"
+
 #include "game/game_route.h"
 
 void MenuView::build() {
@@ -11,23 +12,19 @@ void MenuView::build() {
     m_leaderboardLabel = lvgl::Label{m_leaderboardPage};
     m_settingsLabel = lvgl::Label{m_settingsPage};
 
-    m_leaderboardLabel
-    .center()
-    .align(lvgl::Align::Center)
-    .set_text("Under construction")
-    .style()
-    .text_font(lvgl::Font::montserrat_20());
+    m_leaderboardLabel.center()
+        .align(lvgl::Align::Center)
+        .set_text("Under construction")
+        .style()
+        .text_font(lvgl::Font::montserrat_20());
 
-    m_settingsLabel
-    .center()
-    .align(lvgl::Align::Center)
-    .set_text("Under construction")
-    .style()
-    .text_font(lvgl::Font::montserrat_20())
-    ;
+    m_settingsLabel.center()
+        .align(lvgl::Align::Center)
+        .set_text("Under construction")
+        .style()
+        .text_font(lvgl::Font::montserrat_20());
 
-    m_testButton.center().set_size(60, 40)
-    .on_click([this] (lvgl::Event&) {
+    m_testButton.center().set_size(60, 40).on_click([this](lvgl::Event&) {
         push_command(DescriptionNavigation{GameRoute::SEQUENCE});
     });
 
