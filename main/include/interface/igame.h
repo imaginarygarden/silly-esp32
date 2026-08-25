@@ -8,7 +8,6 @@
 class IGame {
 public:
     virtual ~IGame() = default;
-
     virtual Status update() = 0;
     virtual void start() = 0;
     virtual std::string name() const = 0;

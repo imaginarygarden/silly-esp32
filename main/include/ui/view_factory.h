@@ -12,7 +12,6 @@ class ViewFactory {
 
 public:
     static ViewFactory &instance() { static ViewFactory object{}; return object; }
-
     std::unique_ptr<View> create_menu(lvgl::Object &parent);
     std::unique_ptr<View> create_error(lvgl::Object &parent, Error error);
     std::unique_ptr<View> create_score(lvgl::Object &parent, Result result);

@@ -5,9 +5,7 @@ class DisplayDriver {
     void init();
 
 public:
-    DisplayDriver() {
-        init();
-    }
+    DisplayDriver();
 };
 
 #endif

@@ -17,12 +17,8 @@ protected:
     void push_command(Command command);
 
 public:
-    View(lvgl::Object &parent) : m_parent{parent}
-    {
-    }
-
+    View(lvgl::Object &parent) : m_parent{parent} {}
     virtual ~View() = default;
-
     virtual void build() = 0;
     std::optional<Command> poll_command();
 };

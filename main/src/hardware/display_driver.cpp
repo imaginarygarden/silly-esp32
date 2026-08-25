@@ -171,6 +171,10 @@ lv_display_t *create_lvgl_display(esp_lcd_panel_io_handle_t io,
 
 }
 
+DisplayDriver::DisplayDriver() {
+    init();
+}
+
 void DisplayDriver::init()
 {
     set_backlight(false);

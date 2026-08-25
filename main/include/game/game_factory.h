@@ -12,7 +12,6 @@ class GameFactory {
 
 public:
     static GameFactory &instance() { static GameFactory object{}; return object; }
-
     std::unique_ptr<IGameRuntime> create(GameRoute route);
 };
 

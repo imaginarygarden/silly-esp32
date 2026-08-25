@@ -16,10 +16,7 @@ public:
     void reset();
     void set_view(std::unique_ptr<View> view);
     std::optional<Command> poll_command();
-
-    operator lvgl::Object&() {
-        return m_screen;
-    }
+    operator lvgl::Object&() { return m_screen; }
 };
 
 #endif

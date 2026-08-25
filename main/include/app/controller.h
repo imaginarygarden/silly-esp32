@@ -16,11 +16,9 @@ class Controller {
 
 public:
     Controller();
-
-    void update();
     State &state() { return m_state; }
     bool active() const { return m_state.active; }
-
+    void update();
     void handle_command(Command command);
     void handle_command(MenuNavigation data);
     void handle_command(ErrorNavigation data);

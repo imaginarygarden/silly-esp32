@@ -14,25 +14,11 @@ class GameRuntime final : public IGameRuntime {
     GameType m_game{};
 
 public:
-    void start() override {
-        m_game.start();
-    }
-
-    std::optional<Status> update() override {
-        return m_game.update();
-    }
-
-    std::unique_ptr<View> create_view(lvgl::Object &parent) override {
-        return std::make_unique<ViewType>(parent, m_game);
-    }
-
-    std::string name() const override {
-        return m_game.name();
-    }
-
-    std::string description() const override {
-        return m_game.description();
-    }
+    void start() override { m_game.start(); }
+    std::optional<Status> update() override { return m_game.update(); }
+    std::unique_ptr<View> create_view(lvgl::Object &parent) override { return std::make_unique<ViewType>(parent, m_game); }
+    std::string name() const override { return m_game.name(); }
+    std::string description() const override { return m_game.description(); }
 };
 
 #endif

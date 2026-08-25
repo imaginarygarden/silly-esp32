@@ -12,7 +12,6 @@
 class IGameRuntime {
 public:
     virtual ~IGameRuntime() = default;
-
     virtual void start() = 0;
     virtual std::optional<Status> update() = 0;
     virtual std::unique_ptr<View> create_view(lvgl::Object &parent) = 0;
