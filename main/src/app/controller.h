@@ -1,8 +1,6 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "app/error.h"
-#include "game/game.h"
 #include "game/game_session.h"
 #include "hardware/display_driver.h"
 #include "ui/view_host.h"

@@ -1,9 +1,6 @@
 #ifndef ERROR_VIEW_H
 #define ERROR_VIEW_H
 
-#include <format>
-#include <string>
-
 #include "app/error.h"
 #include "ui/view.h"
 

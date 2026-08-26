@@ -1,4 +1,5 @@
-Checks: '*'
-CheckOptions:
-  - key: modernize-use-nullptr.NullMacros
-    value: NULL,CUSTOM_NULL
+Checks:
+  - modernize-use-constraints
+  - modernize-use-bool-literals
+  - modernize-use-default-member-init
+  - modernize-use-auto

@@ -1,7 +1,6 @@
 #include "hardware/display_driver.h"
 
 #include "driver/i2c_master.h"
-#include "esp_heap_caps.h"
 #include "esp_lcd_ili9341.h"
 #include "esp_lcd_touch_ft5x06.h"
 #include "esp_log.h"
