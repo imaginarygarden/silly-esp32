@@ -14,6 +14,9 @@ class ViewFactory final {
     static ViewFactory& instance();
 
     [[nodiscard]]
+    std::function<std::unique_ptr<View>()> greeting(lvgl::Object& parent);
+
+    [[nodiscard]]
     std::function<std::unique_ptr<View>()> menu(lvgl::Object& parent);
 
     [[nodiscard]]

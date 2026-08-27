@@ -26,9 +26,7 @@ void MenuView::build() {
                 _push_command(GameDescriptionNavigation{descriptor.route});
             });
 
-        button->get_label()
-            .set_text(std::string{descriptor.name}.c_str())
-            .align(lvgl::Align::Center);
+        button->get_label().set_text(std::string{descriptor.name}.c_str());
 
         m_gameButtons.push_back(std::move(button));
     }

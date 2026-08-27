@@ -20,8 +20,9 @@ void ScoreView::build() {
         .style()
         .text_font(lvgl::Font::montserrat_20());
 
-    m_returnButton.align(lvgl::Align::Center, 0, 40)
+    m_button.get()
+        .align(lvgl::Align::Center, 0, 40)
         .on_click([this](lvgl::Event&) { _push_command(MenuNavigation{}); });
 
-    m_returnLabel.align(lvgl::Align::Center).set_text("Return to menu");
+    m_button.get_label().set_text("Return to menu");
 }

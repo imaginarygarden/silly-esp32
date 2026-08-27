@@ -14,9 +14,9 @@ void DescriptionView::build() {
         .style()
         .text_align(lvgl::TextAlign::Center);
 
-    m_button.align(lvgl::Align::BottomMid, 0, -40)
-        .set_size(100, 40)
+    m_button.get()
+        .align(lvgl::Align::BottomMid, 0, -50)
         .on_click([this](lvgl::Event&) { _push_command(GameStartCommand{}); });
 
-    m_buttonLabel.align(lvgl::Align::Center).set_text("Play");
+    m_button.get_label().set_text("Play");
 }

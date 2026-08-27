@@ -2,12 +2,18 @@
 
 #include "ui/view/description_view.h"
 #include "ui/view/error_view.h"
+#include "ui/view/greeting_view.h"
 #include "ui/view/menu_view.h"
 #include "ui/view/score_view.h"
 
 ViewFactory& ViewFactory::instance() {
     static ViewFactory object{};
     return object;
+}
+
+std::function<std::unique_ptr<View>()> ViewFactory::greeting(
+    lvgl::Object& parent) {
+    return [&parent] { return std::make_unique<GreetingView>(parent); };
 }
 
 std::function<std::unique_ptr<View>()> ViewFactory::menu(lvgl::Object& parent) {

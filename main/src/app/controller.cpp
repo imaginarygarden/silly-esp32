@@ -53,7 +53,7 @@ void Controller::_input(const GameStartCommand data) {
 
 void Controller::init() {
     if (lvgl_port_lock(0)) {
-        m_host.set_view(ViewFactory::instance().menu(m_host.screen()));
+        m_host.set_view(ViewFactory::instance().greeting(m_host.screen()));
 
         lvgl_port_unlock();
     }

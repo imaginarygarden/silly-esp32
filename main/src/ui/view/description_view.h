@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include "ui/component/button.h"
 #include "ui/view.h"
 
 class DescriptionView final : public View {
@@ -11,8 +12,7 @@ class DescriptionView final : public View {
 
     lvgl::Label m_nameLabel{m_parent};
     lvgl::Label m_descriptionLabel{m_parent};
-    lvgl::Button m_button{m_parent};
-    lvgl::Label m_buttonLabel{m_button};
+    Button m_button{m_parent};
 
    public:
     DescriptionView(lvgl::Object& parent, std::string_view name,
