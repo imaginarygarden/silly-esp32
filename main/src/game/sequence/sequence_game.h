@@ -25,9 +25,7 @@ class SequenceGame final : public Game {
     void _update(std::chrono::milliseconds elapsed) override;
 
    public:
-    static inline const GameDescriptor DESCRIPTOR{
-        GameRoute::SEQUENCE, "Sequence Memory",
-        "Remember an increasingly long pattern of button presses."};
+    static const GameDescriptor DESCRIPTOR;
 
     using Game::input;
     void input(SequenceCommand command);

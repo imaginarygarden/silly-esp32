@@ -30,8 +30,8 @@ void MenuView::build() {
 
         button->get()
             .align(lvgl::Align::Center, 0, m_gameButtons.size() * 30)
-            .on_click([this](lvgl::Event &) {
-                _push_command(DescriptionNavigation{GameRoute::SEQUENCE});
+            .on_click([this, descriptor](lvgl::Event &) {
+                _push_command(DescriptionNavigation{descriptor.route});
             });
 
         button->get_label()

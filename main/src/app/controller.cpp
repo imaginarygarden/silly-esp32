@@ -2,7 +2,6 @@
 
 #include "app/command.h"
 #include "esp_lvgl_port.h"
-#include "game/game_factory.h"
 #include "ui/view_factory.h"
 
 void Controller::_input(MenuNavigation data) {
@@ -22,7 +21,7 @@ void Controller::_input(DescriptionNavigation data) {
         return;
     }
 
-    auto descriptor = GameFactory::instance().descriptor(data.route);
+    auto descriptor = m_session.descriptor();
 
     if (!descriptor) {
         m_screen.set_view(ViewFactory::instance().create_error(

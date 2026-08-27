@@ -6,6 +6,8 @@
 #include "game/game_command.h"
 #include "game/game_result.h"
 #include "game/sequence/sequence_phase.h"
+#include "game/sequence/sequence_view.h"
+#include "game/typed_game_runtime.h"
 
 void SequenceGame::_press(std::uint8_t index) {
     if (m_phase != SequencePhase::ACTIVE) return;
@@ -50,6 +52,12 @@ void SequenceGame::_start() { _step_add(); }
 void SequenceGame::_update(std::chrono::milliseconds elapsed) {
     m_state.secondsLeft -= elapsed.count() / 1000.0;
 }
+
+const GameDescriptor SequenceGame::DESCRIPTOR{
+    GameRoute::SEQUENCE, "Sequence Memory",
+    "Remember an increasingly long pattern of button presses.", [] {
+        return std::make_unique<TypedGameRuntime<SequenceGame, SequenceView>>();
+    }};
 
 void SequenceGame::input(SequenceCommand command) {
     std::visit([this](auto&& value) { _input(std::move(value)); },

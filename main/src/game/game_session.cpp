@@ -9,7 +9,9 @@ std::function<std::unique_ptr<View>()> GameSession::start(
     lvgl::Object& parent) {
     if (m_game && m_game->phase() == GamePhase::IDLE) {
         m_timestamp = std::chrono::steady_clock::now();
+
         m_game->start();
+
         return m_game->create_view(parent);
     }
 
@@ -32,15 +34,21 @@ std::optional<GameResult> GameSession::update() {
 };
 
 void GameSession::reset() {
-    m_route.reset();
+    m_descriptor.reset();
     m_game.reset();
 }
 
 bool GameSession::set(GameRoute route) {
-    m_game = GameFactory::instance().create(route);
+    auto descriptor = GameFactory::instance().descriptor(route);
+
+    if (!descriptor) {
+        return false;
+    }
+
+    m_game = descriptor->create();
 
     if (m_game) {
-        m_route = route;
+        m_descriptor = descriptor;
         return true;
     }
 
