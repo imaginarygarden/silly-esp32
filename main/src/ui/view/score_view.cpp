@@ -14,10 +14,6 @@ std::unordered_map<GameResult, std::string> RESULT_MESSAGES{
 }
 
 void ScoreView::build() {
-    m_textLabel = lvgl::Label{m_parent};
-    m_returnButton = lvgl::Button{m_parent};
-    m_returnLabel = lvgl::Label{m_returnButton};
-
     m_textLabel.center()
         .align(lvgl::Align::Center, 0, 0)
         .set_text(std::format("{}", RESULT_MESSAGES[m_result]))

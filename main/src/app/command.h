@@ -7,24 +7,24 @@
 #include "game/game_result.h"
 #include "game/game_route.h"
 
-struct MenuNavigation {};
+struct MenuNavigation final {};
 
-struct ErrorNavigation {
-    Error error{};
+struct ErrorNavigation final {
+    const Error error{};
 };
 
-struct DescriptionNavigation {
-    GameRoute route{};
+struct GameDescriptionNavigation final {
+    const GameRoute route{};
 };
 
-struct ScoreNavigation {
-    GameResult result{};
+struct GameScoreNavigation final {
+    const GameResult result{};
 };
 
-struct StartCommand {};
+struct GameStartCommand final {};
 
 using Command =
-    std::variant<MenuNavigation, ErrorNavigation, DescriptionNavigation,
-                 ScoreNavigation, StartCommand>;
+    std::variant<MenuNavigation, ErrorNavigation, GameDescriptionNavigation,
+                 GameScoreNavigation, GameStartCommand>;
 
 #endif

@@ -17,6 +17,7 @@ class SequenceView final : public View {
    public:
     SequenceView(lvgl::Object &parent, SequenceGame &game)
         : View{parent}, m_game{game} {}
+
     void build() override;
     void update() override;
 };

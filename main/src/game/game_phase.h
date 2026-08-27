@@ -1,6 +1,8 @@
 #ifndef GAME_PHASE_H
 #define GAME_PHASE_H
 
-enum class GamePhase { IDLE, RUNNING, PAUSED, FINISHED };
+#include <cstdint>
+
+enum class GamePhase : std::uint8_t { IDLE, RUNNING, PAUSED, FINISHED };
 
 #endif

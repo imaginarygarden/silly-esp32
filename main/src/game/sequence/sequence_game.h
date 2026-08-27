@@ -12,26 +12,29 @@ class SequenceGame final : public Game {
     SequencePhase m_phase{};
     std::uint8_t m_playerIndex{};
 
-    void _press(std::uint8_t index);
+    void _press(const std::uint8_t index);
     void _step_add();
     void _display_finish();
 
-    void _input(SequencePress command) { _press(command.index); }
-    void _input(SequenceDisplayFinish) { _display_finish(); }
-    std::uint8_t _button_count() const { return m_state.cols * m_state.rows; }
+    void _input(const SequencePress command) { _press(command.index); }
+    void _input(const SequenceDisplayFinish) { _display_finish(); }
 
    protected:
     void _start() override;
-    void _update(std::chrono::milliseconds elapsed) override;
+    void _update(const std::chrono::milliseconds elapsed) override;
 
    public:
     static const GameDescriptor DESCRIPTOR;
 
     using Game::input;
-    void input(SequenceCommand command);
 
-    SequencePhase sequence_phase() const { return m_phase; }
-    SequenceState state() const { return m_state; }
+    void input(const SequenceCommand command);
+
+    [[nodiscard]]
+    SequencePhase sequence_phase() const;
+
+    [[nodiscard]]
+    SequenceState state() const;
 };
 
 #endif

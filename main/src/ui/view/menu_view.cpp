@@ -2,17 +2,9 @@
 
 #include "app/command.h"
 #include "game/game_factory.h"
-#include "game/game_route.h"
 #include "misc/enums.h"
 
 void MenuView::build() {
-    m_tabView = lvgl::TabView{m_parent};
-    m_gamesPage = lvgl::TabPage{m_tabView.add_tab("Games")};
-    m_leaderboardPage = lvgl::TabPage{m_tabView.add_tab("Leaderboard")};
-    m_settingsPage = lvgl::TabPage{m_tabView.add_tab("Settings")};
-    m_leaderboardLabel = lvgl::Label{m_leaderboardPage};
-    m_settingsLabel = lvgl::Label{m_settingsPage};
-
     m_leaderboardLabel.center()
         .align(lvgl::Align::Center)
         .set_text("Under construction")
@@ -31,11 +23,11 @@ void MenuView::build() {
         button->get()
             .align(lvgl::Align::Center, 0, m_gameButtons.size() * 30)
             .on_click([this, descriptor](lvgl::Event &) {
-                _push_command(DescriptionNavigation{descriptor.route});
+                _push_command(GameDescriptionNavigation{descriptor.route});
             });
 
         button->get_label()
-            .set_text(descriptor.name)
+            .set_text(std::string{descriptor.name}.c_str())
             .align(lvgl::Align::Center);
 
         m_gameButtons.push_back(std::move(button));

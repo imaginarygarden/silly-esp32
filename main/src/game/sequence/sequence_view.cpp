@@ -1,8 +1,5 @@
 #include "game/sequence/sequence_view.h"
 
-#include <esp_log.h>
-#include <freertos/FreeRTOS.h>
-
 #include "game/sequence/sequence_command.h"
 #include "game/sequence/sequence_phase.h"
 #include "game/sequence/sequence_state.h"

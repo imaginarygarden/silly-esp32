@@ -5,24 +5,25 @@
 #include "hardware/display_driver.h"
 #include "ui/view_host.h"
 
-class Controller {
-    DisplayDriver m_displayDriver{};
+class Controller final {
+    const DisplayDriver m_driver{};
     GameSession m_session{};
-    ViewHost m_screen{};
+    ViewHost m_host{};
     bool m_active{true};
 
-    void _input(MenuNavigation data);
-    void _input(ErrorNavigation data);
-    void _input(DescriptionNavigation data);
-    void _input(ScoreNavigation data);
-    void _input(StartCommand data);
+    void _input(const MenuNavigation data);
+    void _input(const ErrorNavigation data);
+    void _input(const GameDescriptionNavigation data);
+    void _input(const GameScoreNavigation data);
+    void _input(const GameStartCommand data);
 
    public:
     void init();
     void update();
-    void input(Command command);
+    void input(const Command command);
 
-    bool active() const { return m_active; }
+    [[nodiscard]]
+    bool active() const;
 };
 
 #endif

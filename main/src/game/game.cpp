@@ -10,14 +10,14 @@ void Game::_resume() {
     if (m_phase == GamePhase::PAUSED) m_phase = GamePhase::RUNNING;
 }
 
-void Game::_finish(GameResult result) {
+void Game::_finish(const GameResult result) {
     if (m_phase == GamePhase::RUNNING || m_phase == GamePhase::PAUSED) {
         m_phase = GamePhase::FINISHED;
         m_result = result;
     }
 }
 
-void Game::update(std::chrono::milliseconds elapsed) {
+void Game::update(const std::chrono::milliseconds elapsed) {
     if (m_phase == GamePhase::RUNNING) _update(elapsed);
 }
 
@@ -28,7 +28,13 @@ void Game::start() {
     }
 }
 
-void Game::input(GameCommand command) {
+void Game::input(const GameCommand command) {
+    if (m_phase == GamePhase::IDLE || m_phase == GamePhase::FINISHED) return;
+
     std::visit([this](auto&& value) { _input(std::move(value)); },
                std::move(command));
 }
+
+GamePhase Game::phase() const { return m_phase; }
+
+std::optional<GameResult> Game::result() const { return m_result; }

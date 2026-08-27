@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <vector>
 
-struct SequenceState {
+struct SequenceState final {
     std::uint8_t cols{3};
     std::uint8_t rows{3};
     std::uint8_t level{1};

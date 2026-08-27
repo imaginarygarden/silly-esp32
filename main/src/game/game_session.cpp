@@ -23,7 +23,7 @@ std::optional<GameResult> GameSession::update() {
 
     if (!m_game) return std::nullopt;
 
-    milliseconds elapsed =
+    auto elapsed =
         duration_cast<milliseconds>(steady_clock::now() - m_timestamp);
 
     m_game->update(elapsed);
@@ -31,6 +31,10 @@ std::optional<GameResult> GameSession::update() {
     m_timestamp = steady_clock::now();
 
     return m_game->result();
+};
+
+std::optional<GameDescriptor> GameSession::descriptor() const {
+    return m_descriptor;
 };
 
 void GameSession::reset() {
@@ -45,12 +49,13 @@ bool GameSession::set(GameRoute route) {
         return false;
     }
 
-    m_game = descriptor->create();
+    m_descriptor = std::move(descriptor);
+    m_game = m_descriptor->create();
 
-    if (m_game) {
-        m_descriptor = descriptor;
-        return true;
+    if (!m_game) {
+        m_descriptor.reset();
+        return false;
     }
 
-    return false;
+    return true;
 }

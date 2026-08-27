@@ -4,16 +4,19 @@
 #include "game/game_descriptor.h"
 #include "game/game_route.h"
 
-class GameFactory {
-    std::vector<GameDescriptor> m_descriptors;
+class GameFactory final {
+    const std::vector<GameDescriptor> m_descriptors;
 
     GameFactory();
 
    public:
     static GameFactory& instance();
-    std::optional<GameDescriptor> descriptor(GameRoute route) const;
 
-    std::vector<GameDescriptor> descriptors() const { return m_descriptors; };
+    [[nodiscard]]
+    std::optional<GameDescriptor> descriptor(const GameRoute route) const;
+
+    [[nodiscard]]
+    const std::vector<GameDescriptor>& descriptors() const;
 };
 
 #endif

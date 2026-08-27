@@ -9,7 +9,7 @@
 #include "game/sequence/sequence_view.h"
 #include "game/typed_game_runtime.h"
 
-void SequenceGame::_press(std::uint8_t index) {
+void SequenceGame::_press(const std::uint8_t index) {
     if (m_phase != SequencePhase::ACTIVE) return;
 
     if (m_state.path[m_playerIndex] != index) {
@@ -28,10 +28,12 @@ void SequenceGame::_press(std::uint8_t index) {
 void SequenceGame::_step_add() {
     if (m_phase != SequencePhase::ACTIVE) return;
 
-    auto num = static_cast<std::uint8_t>(rand() % _button_count());
+    auto button_count = m_state.cols * m_state.rows;
+
+    auto num = static_cast<std::uint8_t>(rand() % button_count);
 
     while (!m_state.path.empty() && num == m_state.path.back()) {
-        num = static_cast<std::uint8_t>(rand() % _button_count());
+        num = static_cast<std::uint8_t>(rand() % button_count);
     }
 
     m_state.path.push_back(num);
@@ -49,8 +51,14 @@ void SequenceGame::_display_finish() {
 
 void SequenceGame::_start() { _step_add(); }
 
-void SequenceGame::_update(std::chrono::milliseconds elapsed) {
-    m_state.secondsLeft -= elapsed.count() / 1000.0;
+void SequenceGame::_update(const std::chrono::milliseconds elapsed) {
+    m_state.secondsLeft =
+        std::clamp<double>(m_state.secondsLeft - elapsed.count() / 1000.0, 0,
+                           std::numeric_limits<double>::max());
+
+    if (m_state.secondsLeft <= 0) {
+        _finish(GameResult::LOSE);
+    }
 }
 
 const GameDescriptor SequenceGame::DESCRIPTOR{
@@ -59,7 +67,13 @@ const GameDescriptor SequenceGame::DESCRIPTOR{
         return std::make_unique<TypedGameRuntime<SequenceGame, SequenceView>>();
     }};
 
-void SequenceGame::input(SequenceCommand command) {
+void SequenceGame::input(const SequenceCommand command) {
+    if (phase() == GamePhase::IDLE || phase() == GamePhase::FINISHED) return;
+
     std::visit([this](auto&& value) { _input(std::move(value)); },
                std::move(command));
 }
+
+SequencePhase SequenceGame::sequence_phase() const { return m_phase; }
+
+SequenceState SequenceGame::state() const { return m_state; }

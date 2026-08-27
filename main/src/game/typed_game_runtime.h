@@ -17,16 +17,20 @@ class TypedGameRuntime final : public GameRuntime {
 
    public:
     void start() override { m_game.start(); }
-    void update(std::chrono::milliseconds elapsed) override {
+
+    void update(const std::chrono::milliseconds elapsed) override {
         return m_game.update(elapsed);
     }
+
     std::function<std::unique_ptr<View>()> create_view(
         lvgl::Object& parent) override {
         return [this, &parent] {
             return std::make_unique<ViewType>(parent, m_game);
         };
     }
+
     GamePhase phase() const override { return m_game.phase(); }
+
     std::optional<GameResult> result() const override {
         return m_game.result();
     }

@@ -6,7 +6,7 @@
 #include "lvgl_cpp.h"
 #include "ui/view.h"
 
-class ViewHost {
+class ViewHost final {
     std::unique_ptr<View> m_view{};
     lvgl::Object m_screen{lvgl::Screen::active()};
 
@@ -16,7 +16,7 @@ class ViewHost {
     void update_view();
     std::optional<Command> poll_command();
 
-    operator lvgl::Object&() { return m_screen; }
+    lvgl::Object &screen() { return m_screen; }
 };
 
 #endif

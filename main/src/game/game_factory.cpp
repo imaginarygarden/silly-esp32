@@ -1,8 +1,6 @@
 #include "game/game_factory.h"
 
 #include "game/sequence/sequence_game.h"
-#include "game/sequence/sequence_view.h"
-#include "game/typed_game_runtime.h"
 
 GameFactory::GameFactory() : m_descriptors{SequenceGame::DESCRIPTOR} {}
 
@@ -11,10 +9,15 @@ GameFactory& GameFactory::instance() {
     return object;
 }
 
-std::optional<GameDescriptor> GameFactory::descriptor(GameRoute route) const {
+std::optional<GameDescriptor> GameFactory::descriptor(
+    const GameRoute route) const {
     for (auto& descriptor : m_descriptors) {
         if (descriptor.route == route) return descriptor;
     }
 
     return std::nullopt;
 }
+
+const std::vector<GameDescriptor>& GameFactory::descriptors() const {
+    return m_descriptors;
+};

@@ -1,7 +1,9 @@
 #ifndef SEQUENCE_PHASE_H
 #define SEQUENCE_PHASE_H
 
-enum class SequencePhase {
+#include <cstdint>
+
+enum class SequencePhase : std::uint8_t {
     ACTIVE,
     DISPLAY,
 };

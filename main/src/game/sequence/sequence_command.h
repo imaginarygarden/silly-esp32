@@ -4,11 +4,11 @@
 #include <cstdint>
 #include <variant>
 
-struct SequencePress {
-    std::uint8_t index{};
+struct SequencePress final {
+    const std::uint8_t index{};
 };
 
-struct SequenceDisplayFinish {};
+struct SequenceDisplayFinish final {};
 
 using SequenceCommand = std::variant<SequencePress, SequenceDisplayFinish>;
 

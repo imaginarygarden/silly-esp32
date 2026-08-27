@@ -5,12 +5,12 @@
 
 #include "game/game_result.h"
 
-struct PauseGame {};
+struct PauseGame final {};
 
-struct ResumeGame {};
+struct ResumeGame final {};
 
-struct FinishGame {
-    GameResult result{};
+struct FinishGame final {
+    const GameResult result{};
 };
 
 using GameCommand = std::variant<PauseGame, ResumeGame, FinishGame>;
