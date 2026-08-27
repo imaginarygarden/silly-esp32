@@ -39,8 +39,7 @@ void Controller::_input(const GameScoreNavigation data) {
 }
 
 void Controller::_input(const GameStartCommand data) {
-    std::function<std::unique_ptr<View>()> view =
-        m_session.start(m_host.screen());
+    auto view = m_session.start(m_host.screen());
 
     if (!view) {
         m_host.set_view(ViewFactory::instance().error(

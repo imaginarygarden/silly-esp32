@@ -17,8 +17,8 @@ void SequenceView::build() {
         .radius(0)
         .border_width(0);
 
-    SequenceState state = m_game.state();
-    std::uint8_t button_count = state.cols * state.rows;
+    auto state = m_game.state();
+    auto button_count = state.cols * state.rows;
 
     for (std::uint8_t i{}; i < button_count; ++i) {
         if (i != 0 && i != button_count - 1 && i % state.cols == 0)
@@ -42,6 +42,8 @@ void SequenceView::build() {
 }
 
 void SequenceView::update() {
+    using namespace std::chrono;
+
     auto state = m_game.state();
 
     auto secondsLeft = static_cast<std::int16_t>(state.secondsLeft);
@@ -49,8 +51,6 @@ void SequenceView::update() {
     m_timeLabel.set_text(
         std::format("{}m {}s", secondsLeft / 60, secondsLeft % 60));
     m_levelLabel.set_text(std::format("Level {}", state.level));
-
-    using namespace std::chrono;
 
     auto now = steady_clock::now();
 

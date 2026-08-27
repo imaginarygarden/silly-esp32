@@ -7,7 +7,7 @@ void View::_push_command(Command command) {
 std::optional<Command> View::poll_command() {
     if (m_pendingCommands.empty()) return std::nullopt;
 
-    const auto command = m_pendingCommands.front();
+    auto command = m_pendingCommands.front();
 
     m_pendingCommands.pop();
 
