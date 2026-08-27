@@ -2,12 +2,12 @@
 
 #include <algorithm>
 #include <chrono>
+#include <cstdlib>
+#include <limits>
 
 #include "game/game_command.h"
 #include "game/game_result.h"
 #include "game/sequence/sequence_phase.h"
-#include "game/sequence/sequence_view.h"
-#include "game/typed_game_runtime.h"
 
 void SequenceGame::_press(const std::uint8_t index) {
     if (m_phase != SequencePhase::ACTIVE) return;
@@ -60,12 +60,6 @@ void SequenceGame::_update(const std::chrono::milliseconds elapsed) {
         _finish(GameResult::LOSE);
     }
 }
-
-const GameDescriptor SequenceGame::DESCRIPTOR{
-    GameRoute::SEQUENCE, "Sequence Memory",
-    "Remember an increasingly long pattern of button presses.", [] {
-        return std::make_unique<TypedGameRuntime<SequenceGame, SequenceView>>();
-    }};
 
 void SequenceGame::input(const SequenceCommand command) {
     if (phase() == GamePhase::IDLE || phase() == GamePhase::FINISHED) return;

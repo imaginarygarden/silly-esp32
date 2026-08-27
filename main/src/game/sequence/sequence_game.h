@@ -2,7 +2,6 @@
 #define SEQUENCE_GAME_H
 
 #include "game/game.h"
-#include "game/game_descriptor.h"
 #include "game/sequence/sequence_command.h"
 #include "game/sequence/sequence_phase.h"
 #include "game/sequence/sequence_state.h"
@@ -24,8 +23,6 @@ class SequenceGame final : public Game {
     void _update(const std::chrono::milliseconds elapsed) override;
 
    public:
-    static const GameDescriptor DESCRIPTOR;
-
     using Game::input;
 
     void input(const SequenceCommand command);

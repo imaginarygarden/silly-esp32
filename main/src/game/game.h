@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <chrono>
+#include <optional>
 
 #include "game/game_command.h"
 #include "game/game_phase.h"

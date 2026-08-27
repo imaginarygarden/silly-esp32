@@ -1,8 +1,8 @@
 #include "game/game_factory.h"
 
-#include "game/sequence/sequence_game.h"
+#include "game/sequence/sequence_descriptor.h"
 
-GameFactory::GameFactory() : m_descriptors{SequenceGame::DESCRIPTOR} {}
+GameFactory::GameFactory() : m_descriptors{SEQUENCE_GAME_DESCRIPTOR} {}
 
 GameFactory& GameFactory::instance() {
     static GameFactory object{};

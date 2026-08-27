@@ -5,10 +5,6 @@
 #include "game/sequence/sequence_state.h"
 
 void SequenceView::build() {
-    m_timeLabel = lvgl::Label{m_parent};
-    m_levelLabel = lvgl::Label{m_parent};
-    m_buttonMatrix = lvgl::ButtonMatrix{m_parent};
-
     m_timeLabel.align(lvgl::Align::TopLeft, 10, 10);
     m_levelLabel.align(lvgl::Align::TopRight, -10, 10);
     m_buttonMatrix.align(lvgl::Align::BottomMid)

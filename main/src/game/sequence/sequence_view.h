@@ -10,9 +10,9 @@ class SequenceView final : public View {
     std::queue<std::pair<std::uint8_t, bool>> m_displayBuffer{};
     std::chrono::time_point<std::chrono::steady_clock> m_displayTimestamp{};
 
-    lvgl::Label m_timeLabel;
-    lvgl::Label m_levelLabel;
-    lvgl::ButtonMatrix m_buttonMatrix;
+    lvgl::Label m_timeLabel{m_parent};
+    lvgl::Label m_levelLabel{m_parent};
+    lvgl::ButtonMatrix m_buttonMatrix{m_parent};
 
    public:
     SequenceView(lvgl::Object &parent, SequenceGame &game)
