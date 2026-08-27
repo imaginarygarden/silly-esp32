@@ -7,23 +7,30 @@
 #include "game/game_result.h"
 #include "ui/view.h"
 
-class ViewFactory {
+class ViewFactory final {
     ViewFactory() {}
 
    public:
-    static ViewFactory& instance() {
-        static ViewFactory object{};
-        return object;
-    }
-    std::function<std::unique_ptr<View>()> create_menu(lvgl::Object& parent);
-    std::function<std::unique_ptr<View>()> create_error(lvgl::Object& parent,
-                                                        Error error);
-    std::function<std::unique_ptr<View>()> create_score(lvgl::Object& parent,
-                                                        GameResult result);
-    std::function<std::unique_ptr<View>()> create_showcase(
-        lvgl::Object& parent);
-    std::function<std::unique_ptr<View>()> create_description(
-        lvgl::Object& parent, std::string name, std::string description);
+    static ViewFactory& instance();
+
+    [[nodiscard]]
+    std::function<std::unique_ptr<View>()> greeting(lvgl::Object& parent);
+
+    [[nodiscard]]
+    std::function<std::unique_ptr<View>()> menu(lvgl::Object& parent);
+
+    [[nodiscard]]
+    std::function<std::unique_ptr<View>()> error(lvgl::Object& parent,
+                                                 const Error error);
+
+    [[nodiscard]]
+    std::function<std::unique_ptr<View>()> score(lvgl::Object& parent,
+                                                 const GameResult result);
+
+    [[nodiscard]]
+    std::function<std::unique_ptr<View>()> description(
+        lvgl::Object& parent, std::string_view name,
+        std::string_view description);
 };
 
 #endif

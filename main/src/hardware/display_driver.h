@@ -1,11 +1,13 @@
 #ifndef DISPLAY_DRIVER_H
 #define DISPLAY_DRIVER_H
 
-class DisplayDriver {
-    void init();
+class DisplayDriver final {
+    bool m_init{};
 
    public:
     DisplayDriver();
+
+    void init();
 };
 
 #endif

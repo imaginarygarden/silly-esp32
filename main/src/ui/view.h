@@ -13,7 +13,7 @@ class View {
    protected:
     lvgl::Object& m_parent;
 
-    void push_command(Command command);
+    void _push_command(Command command);
 
    public:
     View(lvgl::Object& parent) : m_parent{parent} {}

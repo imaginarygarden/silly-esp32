@@ -1,37 +1,61 @@
 #include "game/game_session.h"
 
+#include <chrono>
+
 #include "game/game_factory.h"
+#include "game/game_phase.h"
 
 std::function<std::unique_ptr<View>()> GameSession::start(
     lvgl::Object& parent) {
-    if (active() && !running()) {
+    if (m_game && m_game->phase() == GamePhase::IDLE) {
+        m_timestamp = std::chrono::steady_clock::now();
+
         m_game->start();
-        m_running = true;
+
         return m_game->create_view(parent);
     }
 
     return nullptr;
 }
 
-bool GameSession::set(GameRoute route) {
-    m_game = GameFactory::instance().create(route);
+std::optional<GameResult> GameSession::update() {
+    using namespace std::chrono;
 
-    if (active()) {
-        m_route = route;
-        m_running = false;
-        return true;
-    }
+    if (!m_game) return std::nullopt;
 
-    return false;
+    auto elapsed =
+        duration_cast<milliseconds>(steady_clock::now() - m_timestamp);
+
+    m_game->update(elapsed);
+
+    m_timestamp = steady_clock::now();
+
+    return m_game->result();
+};
+
+std::optional<GameDescriptor> GameSession::descriptor() const {
+    return m_descriptor;
+};
+
+void GameSession::reset() {
+    m_descriptor.reset();
+    m_game.reset();
 }
 
-std::optional<GameResult> GameSession::update() {
-    if (!active() || !running()) return std::nullopt;
+bool GameSession::set(GameRoute route) {
+    auto descriptor = GameFactory::instance().descriptor(route);
 
-    std::optional<GameStatus> status{m_game->update()};
+    if (!descriptor) {
+        return false;
+    }
 
-    if (!status || status == GameStatus::RUNNING || status == GameStatus::IDLE)
-        return std::nullopt;
+    m_descriptor = std::move(descriptor);
+    m_game = m_descriptor->create();
 
-    return static_cast<GameResult>(static_cast<std::uint8_t>(*status));
-};
+    if (!m_game) {
+        m_descriptor.reset();
+        return false;
+    }
+
+    return true;
+}

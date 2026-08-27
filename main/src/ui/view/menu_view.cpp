@@ -1,17 +1,10 @@
 #include "ui/view/menu_view.h"
 
-#include "game/game_route.h"
+#include "app/command.h"
+#include "game/game_factory.h"
+#include "misc/enums.h"
 
 void MenuView::build() {
-    m_tabView = lvgl::TabView{m_parent};
-    m_gamesPage = lvgl::TabPage{m_tabView.add_tab("Games")};
-    m_leaderboardPage = lvgl::TabPage{m_tabView.add_tab("Leaderboard")};
-    m_settingsPage = lvgl::TabPage{m_tabView.add_tab("Settings")};
-    m_testButton = lvgl::Button{m_gamesPage};
-    m_testButtonLabel = lvgl::Label{m_testButton};
-    m_leaderboardLabel = lvgl::Label{m_leaderboardPage};
-    m_settingsLabel = lvgl::Label{m_settingsPage};
-
     m_leaderboardLabel.center()
         .align(lvgl::Align::Center)
         .set_text("Under construction")
@@ -24,9 +17,17 @@ void MenuView::build() {
         .style()
         .text_font(lvgl::Font::montserrat_20());
 
-    m_testButton.center().set_size(60, 40).on_click([this](lvgl::Event&) {
-        push_command(DescriptionNavigation{GameRoute::SEQUENCE});
-    });
+    for (auto descriptor : GameFactory::instance().descriptors()) {
+        auto button = std::make_unique<Button>(m_gamesPage);
 
-    m_testButtonLabel.set_text("Test").align(lvgl::Align::Center, 0, 0);
+        button->get()
+            .align(lvgl::Align::Center, 0, m_gameButtons.size() * 30)
+            .on_click([this, descriptor](lvgl::Event &) {
+                _push_command(GameDescriptionNavigation{descriptor.route});
+            });
+
+        button->get_label().set_text(std::string{descriptor.name}.c_str());
+
+        m_gameButtons.push_back(std::move(button));
+    }
 }
