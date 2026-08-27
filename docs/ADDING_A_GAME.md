@@ -7,10 +7,10 @@ later, through different multiplayer transports.
 
 ## Module layout
 
-Create a directory under `main/src/game/`:
+Create a directory under `game/`:
 
 ```text
-main/src/game/example/
+src/game/example/
 ├── example_command.h
 ├── example_descriptor.cpp
 ├── example_descriptor.h
@@ -26,7 +26,7 @@ Add rule tests under `tests/`, for example `tests/example_game_test.cpp`.
 
 ## 1. Add a route
 
-Add a value to `GameRoute` in `main/src/game/game_route.h`. A route identifies a
+Add a value to `GameRoute` in `game/game_route.h`. A route identifies a
 game in navigation and catalog lookups; game logic should not depend on it.
 
 ## 2. Define state and commands
@@ -56,10 +56,10 @@ Prefer commands over exposing public mutation methods on the state.
 
 Derive the game from `Game`. The base class owns the common lifecycle:
 
-- `IDLE`: constructed but not started;
-- `RUNNING`: receiving elapsed-time updates;
-- `PAUSED`: alive, but not receiving elapsed-time updates;
-- `FINISHED`: immutable terminal state with a result.
+- `IDLE`: constructed but not started
+- `RUNNING`: receiving elapsed-time updates
+- `PAUSED`: alive, but not receiving elapsed-time updates
+- `FINISHED`: immutable terminal state with a result
 
 Implement `_start()` and `_update(elapsed)`. Use the protected `_pause()`,
 `_resume()`, and `_finish(result)` transitions rather than duplicating lifecycle
@@ -105,16 +105,16 @@ class ExampleView final : public View {
 
 The view may:
 
-- build and update LVGL widgets;
-- read a state snapshot;
-- translate UI events into typed game commands;
-- report that a presentation animation has completed.
+- Build and update LVGL widgets
+- Read a state snapshot
+- Translate UI events into typed game commands
+- Report that a presentation animation has completed
 
 The view should not decide wins or losses, alter state directly, measure gameplay
 time, or contain rules needed by another client. Put those decisions in the
 game so local UI, tests, and future multiplayer peers behave consistently.
 
-Use components from `main/src/ui/component/` when one already represents the
+Use components from `ui/component/` when one already represents the
 required interaction or styling.
 
 ## 5. Register the game
