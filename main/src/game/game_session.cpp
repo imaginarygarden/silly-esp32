@@ -1,37 +1,48 @@
 #include "game/game_session.h"
 
+#include <chrono>
+
 #include "game/game_factory.h"
+#include "game/game_phase.h"
 
 std::function<std::unique_ptr<View>()> GameSession::start(
     lvgl::Object& parent) {
-    if (active() && !running()) {
+    if (m_game && m_game->phase() == GamePhase::IDLE) {
+        m_timestamp = std::chrono::steady_clock::now();
         m_game->start();
-        m_running = true;
         return m_game->create_view(parent);
     }
 
     return nullptr;
 }
 
+std::optional<GameResult> GameSession::update() {
+    using namespace std::chrono;
+
+    if (!m_game) return std::nullopt;
+
+    milliseconds elapsed =
+        duration_cast<milliseconds>(steady_clock::now() - m_timestamp);
+
+    m_game->update(elapsed);
+
+    m_timestamp = steady_clock::now();
+
+    return m_game->result();
+};
+
+void GameSession::reset() {
+    m_route.reset();
+    m_game.reset();
+}
+
 bool GameSession::set(GameRoute route) {
     m_game = GameFactory::instance().create(route);
 
-    if (active()) {
+    if (m_game) {
         m_route = route;
-        m_running = false;
         return true;
     }
 
     return false;
 }
-
-std::optional<GameResult> GameSession::update() {
-    if (!active() || !running()) return std::nullopt;
-
-    std::optional<GameStatus> status{m_game->update()};
-
-    if (!status || status == GameStatus::RUNNING || status == GameStatus::IDLE)
-        return std::nullopt;
-
-    return static_cast<GameResult>(static_cast<std::uint8_t>(*status));
-};

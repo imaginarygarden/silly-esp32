@@ -1,20 +1,21 @@
 #ifndef GAME_FACTORY_H
 #define GAME_FACTORY_H
 
-#include <memory>
-
+#include "game/game_descriptor.h"
 #include "game/game_route.h"
 #include "game/game_runtime.h"
 
 class GameFactory {
-    GameFactory() {}
+    std::vector<GameDescriptor> m_descriptors;
+
+    GameFactory();
 
    public:
-    static GameFactory& instance() {
-        static GameFactory object{};
-        return object;
-    }
-    std::unique_ptr<GameRuntime> create(GameRoute route);
+    static GameFactory& instance();
+    std::unique_ptr<GameRuntime> create(GameRoute route) const;
+    std::optional<GameDescriptor> descriptor(GameRoute route) const;
+
+    std::vector<GameDescriptor> descriptors() const { return m_descriptors; };
 };
 
 #endif

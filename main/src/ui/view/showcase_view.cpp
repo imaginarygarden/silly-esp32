@@ -99,7 +99,7 @@ void ShowcaseView::construct() {
 
     m_titleButton.align(lvgl::Align::TopMid, 0, 8)
         .set_size(60, 40)
-        .on_click([this](lvgl::Event&) { push_command(MenuNavigation{}); });
+        .on_click([this](lvgl::Event&) { _push_command(MenuNavigation{}); });
 
     m_titleLabel.set_text("Go back <-")
         .align(lvgl::Align::Center, 0, 0)

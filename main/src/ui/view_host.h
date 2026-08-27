@@ -13,10 +13,9 @@ class ViewHost {
    public:
     void reset();
     void set_view(std::function<std::unique_ptr<View>()> create);
-    void update_view() {
-        if (m_view) m_view->update();
-    }
+    void update_view();
     std::optional<Command> poll_command();
+
     operator lvgl::Object&() { return m_screen; }
 };
 

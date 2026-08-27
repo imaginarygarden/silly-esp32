@@ -11,15 +11,17 @@ class Controller {
     ViewHost m_screen{};
     bool m_active{true};
 
+    void _input(MenuNavigation data);
+    void _input(ErrorNavigation data);
+    void _input(DescriptionNavigation data);
+    void _input(ScoreNavigation data);
+    void _input(StartCommand data);
+
    public:
     void init();
     void update();
-    void handle_command(Command command);
-    void handle_command(MenuNavigation data);
-    void handle_command(ErrorNavigation data);
-    void handle_command(DescriptionNavigation data);
-    void handle_command(ScoreNavigation data);
-    void handle_command(StartCommand data);
+    void input(Command command);
+
     bool active() const { return m_active; }
 };
 

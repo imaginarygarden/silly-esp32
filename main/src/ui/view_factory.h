@@ -11,10 +11,8 @@ class ViewFactory {
     ViewFactory() {}
 
    public:
-    static ViewFactory& instance() {
-        static ViewFactory object{};
-        return object;
-    }
+    static ViewFactory& instance();
+
     std::function<std::unique_ptr<View>()> create_menu(lvgl::Object& parent);
     std::function<std::unique_ptr<View>()> create_error(lvgl::Object& parent,
                                                         Error error);

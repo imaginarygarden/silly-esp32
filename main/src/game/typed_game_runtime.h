@@ -1,6 +1,8 @@
 #ifndef TYPED_GAME_RUNTIME_H
 #define TYPED_GAME_RUNTIME_H
 
+#include <chrono>
+
 #include "game/game.h"
 #include "game/game_runtime.h"
 #include "ui/view.h"
@@ -15,15 +17,19 @@ class TypedGameRuntime final : public GameRuntime {
 
    public:
     void start() override { m_game.start(); }
-    std::optional<GameStatus> update() override { return m_game.update(); }
+    void update(std::chrono::milliseconds elapsed) override {
+        return m_game.update(elapsed);
+    }
     std::function<std::unique_ptr<View>()> create_view(
         lvgl::Object& parent) override {
         return [this, &parent] {
             return std::make_unique<ViewType>(parent, m_game);
         };
     }
-    std::string name() const override { return m_game.name(); }
-    std::string description() const override { return m_game.description(); }
+    GamePhase phase() const override { return m_game.phase(); }
+    std::optional<GameResult> result() const override {
+        return m_game.result();
+    }
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "ui/view.h"
 
-void View::push_command(Command command) {
+void View::_push_command(Command command) {
     m_pendingCommands.push(std::move(command));
 }
 

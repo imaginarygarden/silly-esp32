@@ -2,7 +2,56 @@
 
 #include "app/command.h"
 #include "esp_lvgl_port.h"
+#include "game/game_factory.h"
 #include "ui/view_factory.h"
+
+void Controller::_input(MenuNavigation data) {
+    m_screen.set_view(ViewFactory::instance().create_menu(m_screen));
+}
+
+void Controller::_input(ErrorNavigation data) {
+    m_screen.set_view(
+        ViewFactory::instance().create_error(m_screen, data.error));
+}
+
+void Controller::_input(DescriptionNavigation data) {
+    if (!m_session.set(data.route)) {
+        m_screen.set_view(ViewFactory::instance().create_error(
+            m_screen,
+            Error{ErrorType::UNEXPECTED, "Could not set up the game."}));
+        return;
+    }
+
+    auto descriptor = GameFactory::instance().descriptor(data.route);
+
+    if (!descriptor) {
+        m_screen.set_view(ViewFactory::instance().create_error(
+            m_screen,
+            Error{ErrorType::UNEXPECTED, "Could not fetch game description."}));
+        return;
+    }
+
+    m_screen.set_view(ViewFactory::instance().create_description(
+        m_screen, descriptor->name, descriptor->description));
+}
+void Controller::_input(ScoreNavigation data) {
+    m_screen.set_view(
+        ViewFactory::instance().create_score(m_screen, data.result));
+    m_session.reset();
+}
+
+void Controller::_input(StartCommand data) {
+    std::function<std::unique_ptr<View>()> view = m_session.start(m_screen);
+
+    if (!view) {
+        m_screen.set_view(ViewFactory::instance().create_error(
+            m_screen,
+            Error{ErrorType::UNEXPECTED, "The game failed to start."}));
+        return;
+    }
+
+    m_screen.set_view(view);
+}
 
 void Controller::init() {
     if (lvgl_port_lock(0)) {
@@ -14,10 +63,9 @@ void Controller::init() {
 
 void Controller::update() {
     if (lvgl_port_lock(0)) {
-        while (auto command = m_screen.poll_command()) handle_command(*command);
+        while (auto command = m_screen.poll_command()) input(*command);
 
-        if (auto result = m_session.update())
-            handle_command(ScoreNavigation{*result});
+        if (auto result = m_session.update()) _input(ScoreNavigation{*result});
 
         m_screen.update_view();
 
@@ -25,46 +73,7 @@ void Controller::update() {
     }
 }
 
-void Controller::handle_command(Command command) {
-    std::visit([this](auto&& value) { handle_command(std::move(value)); },
+void Controller::input(Command command) {
+    std::visit([this](auto&& value) { _input(std::move(value)); },
                std::move(command));
-}
-
-void Controller::handle_command(MenuNavigation data) {
-    m_screen.set_view(ViewFactory::instance().create_menu(m_screen));
-}
-
-void Controller::handle_command(ErrorNavigation data) {
-    m_screen.set_view(
-        ViewFactory::instance().create_error(m_screen, data.error));
-}
-
-void Controller::handle_command(DescriptionNavigation data) {
-    if (!m_session.set(data.route)) {
-        m_screen.set_view(ViewFactory::instance().create_error(
-            m_screen,
-            Error{ErrorType::UNEXPECTED, "Could not set up the game."}));
-        return;
-    }
-
-    m_screen.set_view(ViewFactory::instance().create_description(
-        m_screen, *m_session.name(), *m_session.description()));
-}
-void Controller::handle_command(ScoreNavigation data) {
-    m_screen.set_view(
-        ViewFactory::instance().create_score(m_screen, data.result));
-    m_session.reset();
-}
-
-void Controller::handle_command(StartCommand data) {
-    std::function<std::unique_ptr<View>()> view = m_session.start(m_screen);
-
-    if (!view) {
-        m_screen.set_view(ViewFactory::instance().create_error(
-            m_screen,
-            Error{ErrorType::UNEXPECTED, "The game failed to start."}));
-        return;
-    }
-
-    m_screen.set_view(view);
 }

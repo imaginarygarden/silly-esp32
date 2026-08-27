@@ -14,6 +14,10 @@ void ViewHost::set_view(std::function<std::unique_ptr<View>()> create) {
     m_view->build();
 }
 
+void ViewHost::update_view() {
+    if (m_view) m_view->update();
+}
+
 std::optional<Command> ViewHost::poll_command() {
     if (!m_view) return std::nullopt;
 
