@@ -1,0 +1,5 @@
+Checks:
+  - modernize-use-constraints
+  - modernize-use-bool-literals
+  - modernize-use-default-member-init
+  - modernize-use-auto
