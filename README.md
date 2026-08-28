@@ -22,9 +22,11 @@ The current firmware provides:
 
 ## Screenshots
 
-<img src="docs/screenshots/menu_view.jpeg" alt="Menu View" style="width:33%; height:auto;">
-<img src="docs/screenshots/description_view.jpeg" alt="Description View" style="width:33%; height:auto;">
-<img src="docs/screenshots/sequence_view.jpeg" alt="Sequence View" style="width:33%; height:auto;">
+<div style="display: flex;">
+  <img src="docs/screenshots/menu_view.jpeg" alt="Menu View" style="width:33%; height:auto;">
+  <img src="docs/screenshots/description_view.jpeg" alt="Description View" style="width:33%; height:auto;">
+  <img src="docs/screenshots/sequence_view.jpeg" alt="Sequence View" style="width:33%; height:auto;">
+</div>
 
 ## Project goals
 
