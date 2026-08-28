@@ -3,11 +3,11 @@
 Silly is an open-source mini-game platform for an ESP32 touchscreen device.
 The project aims to provide a reusable foundation where games can be added as
 small, self-contained modules instead of rebuilding navigation, lifecycle,
-display, and session management for every game.
+display and session management for every game.
 
 > [!WARNING]
-> Silly is currently an early alpha. Features, APIs, and hardware configuration
-> may change, and bugs should be expected.
+> Silly is currently in early alpha. Features, APIs and hardware configuration
+> may change and bugs should be expected.
 
 ## Current functionality
 
@@ -19,6 +19,12 @@ The current firmware provides:
 - Catalog-driven game menu
 - Shared game lifecycle
 - Playable single-player game
+
+## Screenshots
+
+<img src="docs/screenshots/menu_view.jpeg" alt="Menu View" style="width:33%; height:auto;">
+<img src="docs/screenshots/description_view.jpeg" alt="Description View" style="width:33%; height:auto;">
+<img src="docs/screenshots/sequence_view.jpeg" alt="Sequence View" style="width:33%; height:auto;">
 
 ## Project goals
 
@@ -43,10 +49,10 @@ The code is divided into a few main areas:
 
 ```text
 src/
-├── app/        # Application controller, navigation commands, and errors
-├── game/       # Game lifecycle, session, catalog, rules, and game views
-├── hardware/   # ESP32 display, touch, and board configuration
-└── ui/         # Shared views, view hosting, factories, and components
+├── app/        # Application controller, navigation commands and errors
+├── game/       # Game lifecycle, session, catalog, rules and game views
+├── hardware/   # ESP32 display, touch and board configuration
+└── ui/         # Shared views, view hosting, factories and components
 ```
 
 See [Adding a game](docs/ADDING_A_GAME.md) for the complete workflow and
@@ -70,7 +76,7 @@ Firmware development requires:
 
 - ESP-IDF 5+
 - CMake and Git
-- Supported display and touch-controller setup, or adjusted board
+- Supported display and touch-controller setup or adjusted board
   configuration
 
 Project dependencies are managed through the ESP-IDF Component Manager.
@@ -113,7 +119,7 @@ Start with [docs/ADDING_A_GAME.md](docs/ADDING_A_GAME.md). It describes:
 - Completion checklist for a new game
 
 In short, adding a game should involve implementing its rules, view,
-registration descriptor, and tests. The shared menu and session infrastructure
+registration descriptor and tests. The shared menu and session infrastructure
 then discover and run it through the catalog.
 
 ## Useful references

@@ -1,8 +1,8 @@
 # Adding a game
 
-Games in Silly consist of deterministic game rules, an LVGL view, and one
+Games in Silly consist of deterministic game rules, an LVGL view and one
 catalog descriptor that connects the two. Keep game rules independent of LVGL,
-ESP-IDF, Bluetooth, and other hardware so they can run in tests and,
+ESP-IDF, Bluetooth and other hardware so they can run in tests and,
 later, through different multiplayer transports.
 
 ## Module layout
@@ -32,7 +32,7 @@ game in navigation and catalog lookups; game logic should not depend on it.
 ## 2. Define state and commands
 
 State is the read-only snapshot consumed by the view. It should contain game
-data, not LVGL objects, callbacks, wall-clock timestamps, or hardware handles.
+data, not LVGL objects, callbacks, wall-clock timestamps or hardware handles.
 
 ```cpp
 struct ExampleState final {
@@ -62,7 +62,7 @@ Derive the game from `Game`. The base class owns the common lifecycle:
 - `FINISHED`: immutable terminal state with a result
 
 Implement `_start()` and `_update(elapsed)`. Use the protected `_pause()`,
-`_resume()`, and `_finish(result)` transitions rather than duplicating lifecycle
+`_resume()` and `_finish(result)` transitions rather than duplicating lifecycle
 flags in game state.
 
 ```cpp
@@ -111,8 +111,8 @@ The view may:
 - Report that a presentation animation has completed
 
 The view should not decide wins or losses, alter state directly, measure gameplay
-time, or contain rules needed by another client. Put those decisions in the
-game so local UI, tests, and future multiplayer peers behave consistently.
+time or contain rules needed by another client. Put those decisions in the
+game so local UI, tests and future multiplayer peers behave consistently.
 
 Use components from `ui/component/` when one already represents the
 required interaction or styling.
@@ -174,11 +174,11 @@ ctest --test-dir build-tests --output-on-failure --no-tests=error
 
 The same commands run in CI. Tests are expected for game rules because
 they are fast and hardware-independent. ESP-IDF CI still verifies that rules,
-views, catalog registration, and hardware adapters compile together as firmware.
+views, catalog registration and hardware adapters compile together as firmware.
 
 ## Completion checklist
 
-- [ ] Rule code has no LVGL, ESP-IDF, Bluetooth, or hardware dependency.
+- [ ] Rule code has no LVGL, ESP-IDF, Bluetooth or hardware dependency.
 - [ ] State contains no presentation objects or wall-clock timestamps.
 - [ ] The base lifecycle is used consistently.
 - [ ] Commands are ignored before start and after finish.
@@ -186,5 +186,5 @@ views, catalog registration, and hardware adapters compile together as firmware.
 - [ ] Metadata and runtime construction are defined in one descriptor.
 - [ ] The descriptor is added to `GameFactory`.
 - [ ] The menu entry is generated from the catalog.
-- [ ] Rule tests cover normal, invalid, timeout, and terminal paths.
+- [ ] Rule tests cover normal, invalid, timeout and terminal paths.
 - [ ] Tests and the ESP-IDF build pass in CI.
